@@ -30,6 +30,11 @@ body {
     font-size: 20px;
 }
 
+.start-button:hover {
+    cursor: pointer;
+    background-color: white;
+}
+
 .restart-button {
     background-color: rgb(165, 223, 5);
     font-weight: 400;
@@ -71,4 +76,12 @@ body {
 
 .incorrect {
     background-color: red;
+}
+
+.right-answer {
+    color: green;
+}
+
+.wrong-answer {
+    color: red;
 }

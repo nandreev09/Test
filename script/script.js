@@ -98,8 +98,9 @@ function showQuestion() {
     const answersContainer = document.createElement('div');
     answersContainer.className = 'answers-container';
 
+    const answerAlert = document.createElement('p')
 
-    if (questionObj.type === 'write') {
+    function typeWriteAnswer() {
         const inputCase = document.createElement('div');
         inputCase.classList.add('input-case');
         const inputAnswer = document.createElement('input');
@@ -109,18 +110,36 @@ function showQuestion() {
         inputCase.appendChild(confirmButton);
         answersContainer.appendChild(inputCase);
         confirmButton.addEventListener('click', () => {
+            if (!inputAnswer.value.trim()) {
+                document.body.appendChild(answerAlert);
+                answerAlert.classList.add('wrong-answer');
+                answerAlert.textContent = 'Заполните поле ввода';
+
+                setTimeout(() => {
+                    document.body.removeChild(answerAlert)
+                }, 2000);
+                return;
+            }
             if (inputAnswer.value === questions[currentQuestionIndex].answers) {
-                alert('Верный ответ!');
+                document.body.appendChild(answerAlert);
+                answerAlert.classList.add('right-answer')
+                answerAlert.textContent = 'Ответ верный!'
                 score++;
 
             } else {
-                alert('Неверный ответ!');
-
+                document.body.appendChild(answerAlert);
+                answerAlert.classList.add('wrong-answer')
+                answerAlert.textContent = 'Ответ неверный!'
             }
-            currentQuestionIndex++;
-            showQuestion()
+            setTimeout(() => {
+                document.body.removeChild(answerAlert);
+                currentQuestionIndex++;
+                showQuestion()
+            }, 2000);
         })
-    } else {
+    }
+
+    function typeSelectAnswer() {
         questionObj.answers.forEach((answer, index) => {
             const answerButton = document.createElement('button');
             answerButton.className = 'answer-button';
@@ -142,6 +161,12 @@ function showQuestion() {
 
             answersContainer.appendChild(answerButton);
         })
+    }
+
+    if (questionObj.type === 'write') {
+        typeWriteAnswer();
+    } else {
+        typeSelectAnswer();
     }
 
 
