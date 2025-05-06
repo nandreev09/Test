@@ -120,7 +120,7 @@ function showQuestion() {
                 }, 2000);
                 return;
             }
-            if (inputAnswer.value === questions[currentQuestionIndex].answers) {
+            if (inputAnswer.value.trim() === questions[currentQuestionIndex].answers) {
                 document.body.appendChild(answerAlert);
                 answerAlert.classList.add('right-answer')
                 answerAlert.textContent = 'Ответ верный!'
